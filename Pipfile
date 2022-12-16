@@ -4,6 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+pyspark = "~=3.3.0"
 
 [dev-packages]
 databricks-cli = "*"
