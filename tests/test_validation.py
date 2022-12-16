@@ -11,4 +11,9 @@ def test_zip_code_format_validation():
     assert is_zip_code_format_valid(invalid_5_digits_zip) == True
     invalid_5_digits_zip = "22207-12345"
     assert is_zip_code_format_valid(invalid_5_digits_zip) == False
-    get_zip_code_city_lookup().show()
+
+def test_city_zip_code_pair_valid():
+    zip = "222033"
+    city = "Fairfax"
+    assert is_city_zip_code_pair_valid(city, zip) == True
+
