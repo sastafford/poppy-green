@@ -1,18 +1,21 @@
 import re
 from pyspark.sql import SparkSession
 from pyspark.sql import DataFrame
-
-spark = SparkSession.builder.getOrCreate()
+from pyspark.sql.types import BooleanType
+from pyspark.sql.functions import udf
 
 def is_city_zip_code_pair_valid(city: str, zip:str) -> bool:
     if (not is_zip_code_format_valid(zip)):
         return False
-    df = get_zip_code_city_lookup()
-    df = df.select("*").where((df.ZipCode == zip) & (df.City == city))
-    if df.count() > 0:
-        return True
-    else: 
+    zipcode_dict = get_zipcode_lookup()
+    if (zip not in zipcode_dict):
         return False
+    else:
+        city_val = zipcode_dict.get(zip)
+        if (city == city_val):
+            return True
+        else:
+            return False
 
 def is_zip_code_format_valid(zip: str) -> bool:
     zip_code_regex = "(^\\d{5}$)|(^\\d{9}$)|(^\\d{5}-\\d{4}$)"
@@ -22,8 +25,10 @@ def is_zip_code_format_valid(zip: str) -> bool:
     else:
         return False
 
-def get_zip_code_city_lookup() -> DataFrame:
-    schema = ["City", "State", "ZipCode"]
-    data = [ ("Fairfax", "VA", "22033")]
-    zip_code_city_df = spark.createDataFrame(data, schema).cache()
-    return zip_code_city_df
+# This code snippet is for demonstration and testing only.  Advise to put this lookup in another class.  
+def get_zipcode_lookup() -> dict:
+    return {
+        "22033": "Fairfax"
+    }
+
+validate_city_zip_code = udf(is_city_zip_code_pair_valid)
