@@ -2,12 +2,13 @@ import pytest
 
 from validation.address import *
 
-def test_zip_code_validation():
+def test_zip_code_format_validation():
     valid_5_digits_zip = "22207"
-    assert is_zip_code_valid(valid_5_digits_zip) == True
+    assert is_zip_code_format_valid(valid_5_digits_zip) == True
     invalid_5_digits_zip = "2A207"
-    assert is_zip_code_valid(invalid_5_digits_zip) == False
+    assert is_zip_code_format_valid(invalid_5_digits_zip) == False
     invalid_5_digits_zip = "22207-1234"
-    assert is_zip_code_valid(invalid_5_digits_zip) == True
+    assert is_zip_code_format_valid(invalid_5_digits_zip) == True
     invalid_5_digits_zip = "22207-12345"
-    assert is_zip_code_valid(invalid_5_digits_zip) == False
+    assert is_zip_code_format_valid(invalid_5_digits_zip) == False
+    get_zip_code_city_lookup().show()
