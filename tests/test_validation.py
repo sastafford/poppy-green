@@ -13,7 +13,7 @@ def test_zip_code_format_validation():
     assert is_zip_code_format_valid(invalid_5_digits_zip) == False
 
 def test_city_zip_code_pair_valid():
-    zip = "222033"
+    zip = "22033"
     city = "Fairfax"
     assert is_city_zip_code_pair_valid(city, zip) == True
 

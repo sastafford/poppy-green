@@ -14,7 +14,7 @@ def is_zip_code_format_valid(zip: str) -> bool:
 
 def is_city_zip_code_pair_valid(city: str, zip:str) -> bool:
     df = get_zip_code_city_lookup()
-    df = df.select("*").where(df.ZipCode == zip)
+    df = df.select("*").where((df.ZipCode == zip) & (df.City == city))
     if df.count() > 0:
         return True
     else: 
