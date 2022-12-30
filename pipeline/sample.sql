@@ -6,10 +6,14 @@
 -- MAGIC schema = ["City", "State", "ZipCode"]
 -- MAGIC data = [ 
 -- MAGIC     ("Fairfax", "VA", "22033"),
--- MAGIC     ("Fairfax", "VA", "22233")
+-- MAGIC     ("Fairfax", "VA", "22233"),
+-- MAGIC     ("Funfax", "VA", "22033")
 -- MAGIC ]
 -- MAGIC df = spark.createDataFrame(data, schema)
--- MAGIC 
+
+-- COMMAND ----------
+
+-- MAGIC %python
 -- MAGIC spark.udf.register("validateAddress", validate_city_zip_code)
 -- MAGIC df.createOrReplaceTempView("address")
 
